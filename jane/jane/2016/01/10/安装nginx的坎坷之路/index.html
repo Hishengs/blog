@@ -1,0 +1,808 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux,nginx," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hisheng" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="前言一直听说nginx有多好有多好，于是准备入入坑，刚好最近在腾讯云买了个服务器，装的ubuntu，于是就决定在这上面装个nginx，没想到问题连连，当然大多数问题跟nginx无关，基本折腾在系统上了，我不知道是我不熟悉linux系统呢，还是说这确实是linux系统的坑爹之处，如果让普通用户来使用linux，安装卸载个软件分分钟都能弄死人…我把这篇文章当作一个记录吧，接下来慢慢记录我是怎么在lin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装nginx的坎坷之路">
+<meta property="og:url" content="http://localhost/2016/01/10/安装nginx的坎坷之路/index.html">
+<meta property="og:site_name" content="Hisheng">
+<meta property="og:description" content="前言一直听说nginx有多好有多好，于是准备入入坑，刚好最近在腾讯云买了个服务器，装的ubuntu，于是就决定在这上面装个nginx，没想到问题连连，当然大多数问题跟nginx无关，基本折腾在系统上了，我不知道是我不熟悉linux系统呢，还是说这确实是linux系统的坑爹之处，如果让普通用户来使用linux，安装卸载个软件分分钟都能弄死人…我把这篇文章当作一个记录吧，接下来慢慢记录我是怎么在lin">
+<meta property="og:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/nginx.png">
+<meta property="og:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/php-install-configure.png">
+<meta property="og:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/php-install-make.png">
+<meta property="og:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/php-install-make-result.png">
+<meta property="og:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/php-install-make-test-result.png">
+<meta property="og:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/php-install-dev-configure.png">
+<meta property="og:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/php-install-phpinfo.png">
+<meta property="og:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/nginx-conf.png">
+<meta property="og:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/nginx-sites-available-default.png">
+<meta property="og:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/nginx-sites-available-default-modified.png">
+<meta property="og:updated_time" content="2016-03-12T18:46:28.011Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安装nginx的坎坷之路">
+<meta name="twitter:description" content="前言一直听说nginx有多好有多好，于是准备入入坑，刚好最近在腾讯云买了个服务器，装的ubuntu，于是就决定在这上面装个nginx，没想到问题连连，当然大多数问题跟nginx无关，基本折腾在系统上了，我不知道是我不熟悉linux系统呢，还是说这确实是linux系统的坑爹之处，如果让普通用户来使用linux，安装卸载个软件分分钟都能弄死人…我把这篇文章当作一个记录吧，接下来慢慢记录我是怎么在lin">
+<meta name="twitter:image" content="http://localhost/2016/01/10/安装nginx的坎坷之路/nginx.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 安装nginx的坎坷之路 | Hisheng </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hisheng</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Hi Hisheng</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                安装nginx的坎坷之路
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-10T00:25:33+08:00" content="2016-01-10">
+              2016-01-10
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/10/安装nginx的坎坷之路/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/10/安装nginx的坎坷之路/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>一直听说nginx有多好有多好，于是准备入入坑，刚好最近在腾讯云买了个服务器，装的ubuntu，于是就决定在这上面装个nginx，没想到问题连连，当然大多数问题跟nginx无关，基本折腾在系统上了，我不知道是我不熟悉linux系统呢，还是说这确实是linux系统的坑爹之处，如果让普通用户来使用linux，安装卸载个软件分分钟都能弄死人…<br>我把这篇文章当作一个记录吧，接下来慢慢记录我是怎么在linux上折腾nginx以及其他各种问题的…</p>
+<hr>
+<a id="more"></a>
+<h3 id="2016-1-10-先写个新鲜的吧"><a href="#2016-1-10-先写个新鲜的吧" class="headerlink" title="2016-1-10 先写个新鲜的吧"></a>2016-1-10 先写个新鲜的吧</h3><blockquote>
+<p>前因:安装了nginx，本地浏览器localhost能成功访问，但是通过云服务器给的公有ip地址访问时却访问不了，各种折腾什么iptables之类的暂且按下不表，还是不成功，于是打算卸了重装试试，于是坑爹之路开始了…</p>
+</blockquote>
+<p>通过命令 sudo apt-get remove nginx ，ok，那么卸载完之后就自然 sudo apt-get install nginx，正美滋滋地敲下 sudo service nginx start，error了，提示配置文件测试错误(具体什么错误也忘了截图了)，反正就是/etc/nginx/nginx.conf有问题了，于是又卸载了一次，留了个心眼，查找之后发现很多nginx相关的文件都还存在，也就是说nginx其实并没有卸载干净，怪不得重新安装的时候那么快…<br>于是查了一下，用 sudo apt-get autoremove nginx会比较好，试了还是不行，又换成了 sudo apt-get –purge remove nginx，这个卸载得比较干净，但是有些相关的依赖还是没卸载彻底，折腾了一个晚上，差点想哭，我不就重新安装一个软件嘛，至于这么百般刁难吗…(cry~)</p>
+<blockquote>
+<p>这里插播一句吐槽一下度娘，真的在查询技术相关的东西时，百度差google真的不止十条解，每次都给我一些不知所云，完全不切题也不能解决问题的网页</p>
+</blockquote>
+<p>好了继续，一番辛苦之后，终于让我”百度”出了一篇有用的文章，链接<a href="http://www.2cto.com/os/201506/404306.html" target="_blank" rel="external">在这</a>，看来还是有人跟我碰到一样的问题的哈哈<br>具体卸载步骤如下：</p>
+<ol>
+<li><p>先卸载</p>
+<blockquote>
+<p>sudo apt-get –purge remove nginx<br>sudo apt-get autoremove</p>
+</blockquote>
+</li>
+<li><p>查找相关依赖 </p>
+<blockquote>
+<p>dpkg –get-selections|grep nginx<br>这是查找结果：<br>nginx-common deinstall</p>
+</blockquote>
+</li>
+</ol>
+<p>3.把这些相关的东西一个个卸载了 </p>
+<blockquote>
+<p>sudo apt-get –purge remove nginx-common</p>
+</blockquote>
+<p>4.重新运行安装命令 </p>
+<blockquote>
+<p>sudo apt-get install nginx</p>
+</blockquote>
+<p>5.测试</p>
+<blockquote>
+<p>sudo apt-get service nginx start</p>
+</blockquote>
+<p>重新打开localhost，亲切的“welcome to nginx!”又回来了！！</p>
+<hr>
+<h3 id="2016-1-10-2-21-竟然能访问了！"><a href="#2016-1-10-2-21-竟然能访问了！" class="headerlink" title="2016-1-10 2:21 竟然能访问了！"></a>2016-1-10 2:21 竟然能访问了！</h3><blockquote>
+<p>刚才试着重新从外部ip访问想到竟然访问成功了！！究竟是什么原因我还没弄清楚…好像也没做什么啊？<br><img src="/2016/01/10/安装nginx的坎坷之路/nginx.png" alt="nginx.png" title=""><br>仔细想想好像是我刚开始选择服务器的时候只选择开放了22端口(ssh)，后来想想可能是这个原因于是更改了安全组，开放了所有的端口，不过当时问题还是依然存在，于是就排除了这个原因，继续去折腾iptables，弄得要死要活的…难道是腾讯的云服务器更改安全组需要一段生效时间？如果是这样，它改了哪里？为什么我自己配置不行呢？哎，百思不得其解！<br>ps，iptables这个鬼东西还是有必要了解一下的，具体看这里<a href="http://zhidao.baidu.com/link?url=TQJvXheEqgRnRcIh1DLdMCrmqTTOaYHvAjNHy3cSRejGsx4jjEiDocF-upuF-9-J3CBtrGBS9011DCTTTn24UHmpb_ULOFKDIJF5StUuaN_" target="_blank" rel="external">介绍</a></p>
+</blockquote>
+<hr>
+<h3 id="安装PHP"><a href="#安装PHP" class="headerlink" title="安装PHP"></a>安装PHP</h3><blockquote>
+<p>版本：5.6.17</p>
+</blockquote>
+<p>安装步骤:</p>
+<ul>
+<li><p>1 下载<a href="http://php.net/get/php-5.6.17.tar.gz/from/a/mirror" target="_blank" rel="external">php-5.6.17.tar-gz</a>包，解压，cd到解压后的目录</p>
+</li>
+<li><p>2 sudo ./configure -enable-fpm 记住要加-enable-fpm，因为php默认是不开启fpm</p>
+<img src="/2016/01/10/安装nginx的坎坷之路/php-install-configure.png" alt="php-install-configure.png" title="">
+</li>
+<li><p>3 make &amp; make install<br>这个过程充斥了一大堆log</p>
+<img src="/2016/01/10/安装nginx的坎坷之路/php-install-make.png" alt="php-install-make.png" title="">
+<p>ok，貌似编译成功了</p>
+<img src="/2016/01/10/安装nginx的坎坷之路/php-install-make-result.png" alt="php-install-make-result.png" title="">
+<p>然后我们make test一下，这个过程很长，看了一下有九千多个测试事例，最后会给出一个测试结果</p>
+<img src="/2016/01/10/安装nginx的坎坷之路/php-install-make-test-result.png" alt="php-install-make-test-result.png" title="">
+</li>
+<li><p>4 接着我们要把php添加到环境变量里去，在 make &amp; make install 的输出结果已经告诉我们php-cli安装在了/usr/local/bin<br>vim /etc/profile<br>在末尾加入<br>PATH=$PATH:/usr/local/bin<br>export PATH<br>要使改动立即生效执行<br>. /etc/profile 或 source /etc/profile<br>ok，一气呵成，不能再爽了！</p>
+<img src="/2016/01/10/安装nginx的坎坷之路/php-install-dev-configure.png" alt="php-install-dev-configure.png" title="">
+</li>
+<li><p>5 接下来是要配置php-pfm，先 cd /usr/local/etc/php-fpm/，然后 cp php-fpm.conf.default php-fpm.conf<br>ok，然后运行一下php-fpm，出现错误提示：cannot get gid for group “nobody”<br>修改php-fpm.conf<br>user = ubuntu  #这里改为你自己的用户名<br>group = sudo   #这里改为你的用户组<br>再运行一下，成功了！</p>
+</li>
+<li><p>6 接下来就是配置nginx去解析php了</p>
+<blockquote>
+<p>ps，折腾了一整天了，终于配置好了，好想哭啊~<br>截图为证：</p>
+<img src="/2016/01/10/安装nginx的坎坷之路/php-install-phpinfo.png" alt="php-install-phpinfo.png" title="">
+<p>应该怎么配置呢，上面php-fpm能运行成功就不用去管他了，主要在于ngixn的配置，之前查了好多资料都是说在nginx.conf上配置，然后我就是找nginx.conf，可是没想到同名文件在两个不同地方都有，分别是/etc/nginx和/usr/local/nginx/conf/，你让我配哪个？？<br>好吧，只好每个都试试咯，修改配置如下(在nginx.conf的http双花括号末尾加上)：</p>
+<img src="/2016/01/10/安装nginx的坎坷之路/nginx-conf.png" alt="nginx-conf.png" title="">
+<p>在两个地方同一个文件都修改过，期间不断重启nginx，认真检查每个格式，还是毛用没有…<br>就在我即将放弃想洗洗睡的时候，看到/etc/nginx下有个sites-available文件夹，于是误打误撞进去看了一眼，里面有个default文件，vim了一下，长这样：</p>
+<img src="/2016/01/10/安装nginx的坎坷之路/nginx-sites-available-default.png" alt="nginx-sites-available-default.png" title="">
+<p>咦？怎么看起来有点眼熟啊？于是就试着把上面的配置粘贴了一份放在这里，好，重启nginx，访问浏览器，有了！！好神奇…</p>
+<img src="/2016/01/10/安装nginx的坎坷之路/nginx-sites-available-default-modified.png" alt="nginx-sites-available-default-modified.png" title="">
+<p>原来是配置在这？真是日了狗了…<br>也不是说网上的经验帖不对，我怀疑是不是不同nginx版本，他们的配置文件位置都会随意改动…真的是得视情况而定了</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>最后，吐槽一下linux下的软件安装管理，我不知道他们这么做是不是有什么高明的目的，但是安装一个应用，源文件在一个文件夹，安装又在一个位置，配置又是另一个位置，有时候还得你自己去添加环境变量…这样的用户体验真心不敢苟同啊，也许真的是应用领域不同的，linux可能更适用于服务器或者大型系统吧，但目标使用人群注定了只能是懂计算机的那么一小戳人群，术业有专攻，需要用到的时候你还是得乖乖去学。</p>
+</blockquote>
+<ul>
+<li>7 总结一下 nginx和php 安装后各个位置的作用<h4 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h4>/etc/nginx 这个应该是主程序位置<br>/etc/nginx/sites-available/default or /etc/nginx/nginx.conf 这是配置文件<br>/usr/local/nginx/conf 这里也有配置文件(我不知道为什么要分开这么放…)<br>/usr/local/nginx/conf/fastcgi.conf 这个文件定义了fastcgi的一些参数，所以在上面的配置我们直接include进来，就不用写那么多参数了<br>/usr/share/nginx/www 这是web根目录啦<br>/usr/local/nginx/html 这个貌似也是web目录，不知道和上面那个什么区别，晕-_-||<h4 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h4>由于php我使用的是包安装的方式，所以位置就可以由你自己决定了，我是放在/usr/local/src这里，需要注意的是安装之后上层目录会生成一些相关的文件夹，包括php-cli和php-fpm，要记得把../bin/php添加到环境变量中</li>
+</ul>
+<blockquote>
+<p>至此nginx+php终于弄好了，完成时间是2016-1-9 至 2016-1-10 18:50<br>郑海生20347任重而道远，这个经验帖还结不了…</p>
+</blockquote>
+<hr>
+<h4 id="nodejs-npm-的安装"><a href="#nodejs-npm-的安装" class="headerlink" title="nodejs npm 的安装"></a>nodejs npm 的安装</h4><blockquote>
+<p>2016-1-10 23:59<br>有些东西真的不要用apt-get去安装，虽然简单了事，但也会给你带来很多的问题，最好还是采用源码安装的方式，或者直接下载包<br>今晚装nodejs和npm的时候就遇到坑了，通过apt-get install的nodejs竟然是1.x和0.6.x版本的，这得是多久以前的啊…<br>npm install之后一直提示 failed to fetch from registry，查了一下可能是版本原因，果断抛弃apt-get，直接在官网下了二进制包，解压到你想要的位置<br>有一点要注意，环境变量需要我们手动去配置的，不然node -v和npm -v都出不来</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+            <a href="/tags/nginx/" rel="tag">#nginx</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/09/ubuntu界面无法登陆/" rel="next" title="ubuntu界面无法登陆">
+                <i class="fa fa-chevron-left"></i> ubuntu界面无法登陆
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/10/学习日志/" rel="prev" title="学习日志">
+                学习日志 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/01/10/安装nginx的坎坷之路/"
+           data-title="安装nginx的坎坷之路" data-url="http://localhost/2016/01/10/安装nginx的坎坷之路/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://dn-lanbaidiao.qbox.me/avatar_1000_2eddfc6d3fc1c1dd594d71c65f36deea"
+               alt="Hisheng Z" />
+          <p class="site-author-name" itemprop="name">Hisheng Z</p>
+          <p class="site-description motion-element" itemprop="description">In memory of J</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2016-1-10-先写个新鲜的吧"><span class="nav-number"></span> <span class="nav-text">2016-1-10 先写个新鲜的吧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2016-1-10-2-21-竟然能访问了！"><span class="nav-number"></span> <span class="nav-text">2016-1-10 2:21 竟然能访问了！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装PHP"><span class="nav-number"></span> <span class="nav-text">安装PHP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx"><span class="nav-number">1.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP"><span class="nav-number">2.</span> <span class="nav-text">PHP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nodejs-npm-的安装"><span class="nav-number">3.</span> <span class="nav-text">nodejs npm 的安装</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hisheng Z</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hishengnet"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+
+</body>
+</html>
