@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://localhost/"/>
-  <updated>2016-03-12T17:49:24.119Z</updated>
+  <updated>2016-03-13T05:09:15.131Z</updated>
   <id>http://localhost/</id>
   
   <author>
@@ -14,6 +14,77 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于斐波纳契数列</title>
+    <link href="http://localhost/2016/03/13/%E5%85%B3%E4%BA%8E%E6%96%90%E6%B3%A2%E7%BA%B3%E5%A5%91%E6%95%B0%E5%88%97/"/>
+    <id>http://localhost/2016/03/13/关于斐波纳契数列/</id>
+    <published>2016-03-13T05:04:09.000Z</published>
+    <updated>2016-03-13T05:09:15.131Z</updated>
+    
+    <content type="html">&lt;p&gt;之前面试的时候，一个小小的斐波纳契数列我竟然还不会写，好丢脸啊，于是回来之后总结了一下&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;斐波纳契数列：&lt;br&gt;基本定义就是&lt;br&gt;当 n=0 fib(n)=0&lt;br&gt;当 n=1 fib(n)=1&lt;br&gt;当 n&amp;gt;1 时，每个数都是前两个数之和&lt;br&gt;0、1、1、2、3、5、8、13、21、34、……&lt;/p&gt;
+&lt;p&gt;所以写成Js其实就很容易&lt;/p&gt;
+&lt;p&gt;递归方式：&lt;br&gt;&lt;figure class=&quot;highlight stata&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;function fib(&lt;span class=&quot;keyword&quot;&gt;n&lt;/span&gt;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;n&lt;/span&gt;&amp;lt;2?&lt;span class=&quot;keyword&quot;&gt;n&lt;/span&gt;:fib(&lt;span class=&quot;keyword&quot;&gt;n&lt;/span&gt;-1)+fib(&lt;span class=&quot;keyword&quot;&gt;n&lt;/span&gt;-2);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;非递归方式：&lt;br&gt;非递归的方式就有点难了，其实非递归就是对递归的一种优化，因为当要计算的n很大时，递归方式很容易就内存溢出了&lt;br&gt;下面是几种非递归的实现方式，各有利弊&lt;/p&gt;
+&lt;p&gt;#1 使用闭包，数组存储&lt;br&gt;&lt;figure class=&quot;highlight hsp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//非递归-数组缓存&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var countFib = (function()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	var fibArr = [&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; function(n)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(n &amp;gt; fibArr.&lt;span class=&quot;keyword&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (var i=fibArr.&lt;span class=&quot;keyword&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;i&amp;lt;=n;i++) &amp;#123;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				fibArr[i] = fibArr[i&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;] + fibArr[i&lt;span class=&quot;number&quot;&gt;-2&lt;/span&gt;]&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; fibArr[n]&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;)()&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;#2 直接加法&lt;br&gt;&lt;figure class=&quot;highlight hsp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//非递归-直接加法计算&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;function fib(n)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(n &amp;lt; &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;)&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; n&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	var temp,temp1 = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,temp2 = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (var i=&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;comment&quot;&gt;;i&amp;lt;n-1;i++) &amp;#123;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		temp = temp1&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		temp1 = temp2&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		temp2 = temp + temp2&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; temp1 + temp2&lt;span class=&quot;comment&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前面试的时候，一个小小的斐波纳契数列我竟然还不会写，好丢脸啊，于是回来之后总结了一下&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://localhost/tags/Javascript/"/>
+    
+      <category term="算法" scheme="http://localhost/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JS中变量赋值引用的问题</title>
+    <link href="http://localhost/2016/03/13/JS%E4%B8%AD%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E5%BC%95%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://localhost/2016/03/13/JS中变量赋值引用的问题/</id>
+    <published>2016-03-13T04:44:45.000Z</published>
+    <updated>2016-03-13T05:02:58.238Z</updated>
+    
+    <content type="html">&lt;p&gt;在JS中，将变量A的值赋给变量B，其实只是赋给了变量B 变量A的&lt;strong&gt;值的引用&lt;/strong&gt;而已，所以变量A、B其中一个修改了值，都会影响到彼此，此时如果给变量A另赋新值，则会开辟新的内存空间，并将变量A指向该位置，但变量B的指向(引用)仍然不变，具体如下图示：&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;/2016/03/13/JS中变量赋值引用的问题/1.png&quot; alt=&quot;1.png&quot; title=&quot;&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在JS中，将变量A的值赋给变量B，其实只是赋给了变量B 变量A的&lt;strong&gt;值的引用&lt;/strong&gt;而已，所以变量A、B其中一个修改了值，都会影响到彼此，此时如果给变量A另赋新值，则会开辟新的内存空间，并将变量A指向该位置，但变量B的指向(引用)仍然不变，具体如下图示：&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://localhost/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>什么是闭包</title>
+    <link href="http://localhost/2016/03/13/%E4%BB%80%E4%B9%88%E6%98%AF%E9%97%AD%E5%8C%85/"/>
+    <id>http://localhost/2016/03/13/什么是闭包/</id>
+    <published>2016-03-13T04:38:11.000Z</published>
+    <updated>2016-03-13T04:43:00.854Z</updated>
+    
+    <content type="html">&lt;p&gt;闭包是JS中一个很重要的概念，有必要了解清楚它的原理是什么…&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;以下是我从知乎摘取的部分回答：&lt;br&gt;Answer 1&lt;br&gt;&lt;img src=&quot;/2016/03/13/什么是闭包/1.png&quot; alt=&quot;1.png&quot; title=&quot;&quot;&gt;&lt;br&gt;Answer 2&lt;br&gt;&lt;img src=&quot;/2016/03/13/什么是闭包/2.png&quot; alt=&quot;2.png&quot; title=&quot;&quot;&gt;&lt;br&gt;Answer 3&lt;br&gt;&lt;img src=&quot;/2016/03/13/什么是闭包/3.png&quot; alt=&quot;3.png&quot; title=&quot;&quot;&gt;&lt;br&gt;注：函数 1.调用时的上下文环境 2.定义时的上下文环境&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;闭包是JS中一个很重要的概念，有必要了解清楚它的原理是什么…&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://localhost/tags/Javascript/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker 初探</title>
