@@ -57,18 +57,24 @@
 
 
 
-<meta name="description" content="在JS中，将变量A的值赋给变量B，其实只是赋给了变量B 变量A的值的引用而已，所以变量A、B其中一个修改了值，都会影响到彼此，此时如果给变量A另赋新值，则会开辟新的内存空间，并将变量A指向该位置，但变量B的指向(引用)仍然不变，具体如下图示：">
+<meta name="description" content="夜深，今晚本来准备早早睡觉的，可突然想到JS中一个很有趣的问题(程序员的通病，总是把工作带到生活中去，(╯‵□′)╯︵ ┻━┻，摔！)：
+
+null和undefined的关系和区别？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS中变量赋值引用的问题">
-<meta property="og:url" content="http://localhost/2016/03/13/JS中变量赋值引用的问题/index.html">
+<meta property="og:title" content="JS中的null和undefined">
+<meta property="og:url" content="http://localhost/2016/03/16/JS中的null和undefined/index.html">
 <meta property="og:site_name" content="Hisheng">
-<meta property="og:description" content="在JS中，将变量A的值赋给变量B，其实只是赋给了变量B 变量A的值的引用而已，所以变量A、B其中一个修改了值，都会影响到彼此，此时如果给变量A另赋新值，则会开辟新的内存空间，并将变量A指向该位置，但变量B的指向(引用)仍然不变，具体如下图示：">
-<meta property="og:image" content="http://localhost/2016/03/13/JS中变量赋值引用的问题/1.png">
-<meta property="og:updated_time" content="2016-03-14T14:37:48.566Z">
+<meta property="og:description" content="夜深，今晚本来准备早早睡觉的，可突然想到JS中一个很有趣的问题(程序员的通病，总是把工作带到生活中去，(╯‵□′)╯︵ ┻━┻，摔！)：
+
+null和undefined的关系和区别？">
+<meta property="og:image" content="http://localhost/2016/03/16/JS中的null和undefined/1.png">
+<meta property="og:updated_time" content="2016-03-15T16:33:36.245Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS中变量赋值引用的问题">
-<meta name="twitter:description" content="在JS中，将变量A的值赋给变量B，其实只是赋给了变量B 变量A的值的引用而已，所以变量A、B其中一个修改了值，都会影响到彼此，此时如果给变量A另赋新值，则会开辟新的内存空间，并将变量A指向该位置，但变量B的指向(引用)仍然不变，具体如下图示：">
-<meta name="twitter:image" content="http://localhost/2016/03/13/JS中变量赋值引用的问题/1.png">
+<meta name="twitter:title" content="JS中的null和undefined">
+<meta name="twitter:description" content="夜深，今晚本来准备早早睡觉的，可突然想到JS中一个很有趣的问题(程序员的通病，总是把工作带到生活中去，(╯‵□′)╯︵ ┻━┻，摔！)：
+
+null和undefined的关系和区别？">
+<meta name="twitter:image" content="http://localhost/2016/03/16/JS中的null和undefined/1.png">
 
 
 
@@ -86,7 +92,7 @@
   };
 </script>
 
-  <title> JS中变量赋值引用的问题 | Hisheng </title>
+  <title> JS中的null和undefined | Hisheng </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -226,7 +232,7 @@
             
             
               
-                JS中变量赋值引用的问题
+                JS中的null和undefined
               
             
           </h1>
@@ -238,8 +244,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-13T12:44:45+08:00" content="2016-03-13">
-              2016-03-13
+            <time itemprop="dateCreated" datetime="2016-03-16T00:04:57+08:00" content="2016-03-16">
+              2016-03-16
             </time>
           </span>
 
@@ -249,8 +255,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/13/JS中变量赋值引用的问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/13/JS中变量赋值引用的问题/" itemprop="commentsCount"></span>
+                <a href="/2016/03/16/JS中的null和undefined/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/16/JS中的null和undefined/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -272,7 +278,31 @@
       
 
       
-        <p>在JS中，将变量A的值赋给变量B，其实只是赋给了变量B 变量A的<strong>值的引用</strong>而已，所以变量A、B其中一个修改了值，都会影响到彼此，此时如果给变量A另赋新值，则会开辟新的内存空间，并将变量A指向该位置，但变量B的指向(引用)仍然不变，具体如下图示：<br><a id="more"></a><br><img src="/2016/03/13/JS中变量赋值引用的问题/1.png" alt="1.png" title=""></p>
+        <p>夜深，今晚本来准备早早睡觉的，可突然想到JS中一个很有趣的问题(程序员的通病，总是把工作带到生活中去，(╯‵□′)╯︵ ┻━┻，摔！)：</p>
+<blockquote>
+<p>null和undefined的关系和区别？</p>
+</blockquote>
+<a id="more"></a>
+<p>先在前面放几篇我认为写的很好的文章，然后再发表一下我浅陋的看法…</p>
+<ul>
+<li><a href="http://yanhaijing.com/javascript/2014/01/05/exploring-the-abyss-of-null-and-undefined-in-javascript/" target="_blank" rel="external">探索JavaScript中Null和Undefined的深渊-颜海镜</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html" target="_blank" rel="external">undefined与null的区别-阮一峰的网络日志</a></li>
+</ul>
+<p>引用一下《Javascript权威指南》中对二者的比较(第6版，32页)：</p>
+<blockquote>
+<p>Javascript中有两个特殊的原始值：null和undefined，它们不是数字，字符串和布尔值。它们通常分别代表了各自特殊类型的唯一的成员。</p>
+</blockquote>
+<p>我自己结合前人博文和书籍的经验，认为：<br>1.null和undefined是Javascript中的关键字，同时也是基本数据类型之一。属于数据类型中的<strong>原始类型</strong></p>
+<img src="/2016/03/16/JS中的null和undefined/1.png" alt="1.png" title="">
+<p>2.null表示 <strong>正常情况</strong> 下的空值，即表示该变量的值是空的，或者表示该对象是空的对象，不包含任何的属性和方法</p>
+<p>3.undefined表示 <strong>出乎意料</strong>、 <strong>有错误</strong> 的值的空缺，当一个变量只是声明而未定义未初始化时，代表该变量的值是空缺的，此时其值就用undefined来表示</p>
+<p>4.null和undefined从布尔值上来判断都等于false(因为都代表空值)，即 null == false , undefined == false , null == undefined</p>
+<p>5.null和undefined都是一个 <strong>值</strong> ，它们都属于null和undefined类型的唯一成员</p>
+<hr>
+<p>最后留一个问题</p>
+<blockquote>
+<p>为什么 typeof null 得到的结果是 object ？</p>
+</blockquote>
 
       
     </div>
@@ -296,17 +326,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/13/什么是闭包/" rel="next" title="什么是闭包">
-                <i class="fa fa-chevron-left"></i> 什么是闭包
+              <a href="/2016/03/15/JS中的函数和原型/" rel="next" title="JS中的函数和原型">
+                <i class="fa fa-chevron-left"></i> JS中的函数和原型
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/13/关于斐波纳契数列/" rel="prev" title="关于斐波纳契数列">
-                关于斐波纳契数列 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -332,8 +358,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/13/JS中变量赋值引用的问题/"
-           data-title="JS中变量赋值引用的问题" data-url="http://localhost/2016/03/13/JS中变量赋值引用的问题/">
+      <div class="ds-thread" data-thread-key="2016/03/16/JS中的null和undefined/"
+           data-title="JS中的null和undefined" data-url="http://localhost/2016/03/16/JS中的null和undefined/">
       </div>
     
   </div>
