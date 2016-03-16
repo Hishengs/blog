@@ -33,3 +33,29 @@ tags:
 最后留一个问题
 
 > 为什么 typeof null 得到的结果是 object ？
+
+上班时间偷个懒，自问自答，同样先抛玉引“砖”，推荐几篇文章：
+* [why is typeof null “object”? - StackOverflow](http://stackoverflow.com/questions/18808226/why-is-typeof-null-object)
+* [The history of “typeof null” - ES Wiki](http://www.2ality.com/2013/10/typeof-null.html)
+* [harmony:typeof_null - 2ality](http://wiki.ecmascript.org/doku.php?id=harmony:typeof_null)
+* [typeof - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof)
+
+看这段：
+> "The “typeof null” bug is a remnant from the first version of JavaScript. In this version, values were stored in 32 bit units, which consisted of a small type tag (1–3 bits) and the actual data of the value. The type tags were stored in the lower bits of the units. There were five of them:
+000: object. The data is a reference to an object.
+1: int. The data is a 31 bit signed integer.
+010: double. The data is a reference to a double floating point number.
+100: string. The data is a reference to a string.
+110: boolean. The data is a boolean.
+That is, the lowest bit was either one, then the type tag was only one bit long. Or it was zero, then the type tag was three bits in length, providing two additional bits, for four types."
+
+大概意思就是：
+null其实是一个原始值，也是属于Null类型，本来 typeof null 结果应该是 "null" 才对，但是因为
+> JS类型值是存在32位单元里,32位有1-3位表示TYPE TAG,其它位表示真实值，而表示object的标记位正好是低三位都是0，即
+000: object. The data is a reference to an object.
+而js里的Null是机器码NULL空指针,所以空指针引用加上对象标记还是0,最终体现的类型还是object.
+
+so
+> This is a bug and one that unfortunately can’t be fixed, because it would break existing code.
+
+其实就是一个bug，曾经也有人提案建议修正，但是因为影响甚深，被否决了，所以也就不好再修改了，只好将错就错，就这么使用着貌似也没多大问题...
