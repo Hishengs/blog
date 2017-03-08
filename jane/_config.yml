@@ -64,7 +64,8 @@ pagination_dir: page
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
 theme: next
-#theme: apollo
+# theme: apollo
+# theme: heysoo
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
@@ -72,7 +73,7 @@ deploy:
   type: git
   repo: https://github.com/Hishengs/hishengs.github.io.git
   branch: master
-  message: hi jane
+  message:
 
 #comment 评论
 duoshuo_shortname: hishengnet

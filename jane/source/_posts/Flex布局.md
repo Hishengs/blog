@@ -1,8 +1,8 @@
 title: Flex布局
 date: 2016-06-02 11:30:46
 tags:
-- CSS
-- CSS3
+- css
+- css3
 ---
 ### 前言
 
