@@ -1,7 +1,7 @@
 title: HTML5之Application Cache
 date: 2017-03-08 17:48:55
 tags:
-- html5
+- html5q
 ---
 
 ### 前言
