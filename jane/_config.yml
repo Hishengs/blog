@@ -76,7 +76,7 @@ deploy:
   message:
 
 #comment 评论
-duoshuo_shortname: hishengnet
+# duoshuo_shortname: hishengnet
 
 #avatar 头像
 avatar: https://dn-lanbaidiao.qbox.me/avatar_1000_2eddfc6d3fc1c1dd594d71c65f36deea
