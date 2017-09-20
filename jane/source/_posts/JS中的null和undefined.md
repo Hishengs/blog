@@ -1,7 +1,7 @@
 title: JS中的null和undefined
 date: 2016-03-16 00:04:57
 tags:
-- Javascript
+- javascript
 ---
 夜深，今晚本来准备早早睡觉的，可突然想到JS中一个很有趣的问题(程序员的通病，总是把工作带到生活中去，(╯‵□′)╯︵ ┻━┻，摔！)：
 

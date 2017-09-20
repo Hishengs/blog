@@ -1,7 +1,7 @@
 title: Javascript之call与apply
 date: 2017-02-10 14:58:45
 tags:
-- Javascript
+- javascript
 ---
 
 ### 1.前言
