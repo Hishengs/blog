@@ -5,14 +5,15 @@
 # Site
 title: Hisheng
 subtitle: Hi Hisheng
-description: In memory of J
+# description: In memory of J
+description: simona, u're getting older
 author: Hisheng Z
 language: zh-Hans
-timezone:
+timezone: Asia/Hong_Kong
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://localhost
+url: http://hisheng.net
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -79,4 +80,5 @@ deploy:
 # duoshuo_shortname: hishengnet
 
 #avatar 头像
-avatar: https://dn-lanbaidiao.qbox.me/avatar_1000_2eddfc6d3fc1c1dd594d71c65f36deea
+# avatar: https://dn-lanbaidiao.qbox.me/avatar_1000_2eddfc6d3fc1c1dd594d71c65f36deea
+avatar: hacker.png
