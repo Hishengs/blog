@@ -26,7 +26,7 @@ comments: false
 > [掘金](https://gold.xitu.io) [Awesomes](https://www.awesomes.cn/)
 
 ## 1.5博客
-> [阮一峰](http://www.ruanyifeng.com/blog/) [廖雪峰](http://www.liaoxuefeng.com/) [justjavac(迷渡)](http://justjavac.com/) [CSS探索之旅](http://blog.doyoe.com/)
+> [阮一峰](http://www.ruanyifeng.com/blog/) [廖雪峰](http://www.liaoxuefeng.com/) [justjavac(迷渡)](http://justjavac.com/) [CSS探索之旅](http://blog.doyoe.com/) [iHoey](https://blog.ihoey.com/)
 
 ## 1.6 技术团队
 > * 百度 - [百度FEX](http://fex.baidu.com/) [百度EUX](http://eux.baidu.com/) [百度EFE](http://efe.baidu.com/) [百度UXC](http://mux.baidu.com/ '用户体验中心')
